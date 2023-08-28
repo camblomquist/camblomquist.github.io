@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:site_name" content="blomqu.ist">
+  
+  <meta property="og:url" content="https://blomqu.ist/posts/2023/clamping/">
+  
+  
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="At My Limit: A Story About Clamping">
+    <meta name="description" property="og:description" content="A short rabbit hole from a poorly named function">
+    <meta property="og:article:published_time" content="2023-08-28">
+
+  <title>
+At My Limit: A Story About Clamping - blomqu.ist
+</title>
+  <link href="https://blomqu.ist/style.css" rel="stylesheet" />
+  <link rel="icon" href="https://blomqu.ist/favicon.ico" />
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom Feed"
+    href="https://blomqu.ist/atom.xml" />
+  
+  
+<script src="https://blomqu.ist/page.js" async></script>
+
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <a class="title no-decoration" href="/">blomqu.ist</a>
+      <nav>
+        <ul>
+          <li><a class="no-decoration" href="https://blomqu.ist/posts/">posts</a></li>
+          <li><a class="no-decoration" href="https://blomqu.ist/about/">about</a></li>
+          
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <div class="container">
+    
+<main class="page">
+    <article>
+        <header>
+            <h1 class="title">
+                At My Limit: A Story About Clamping
+            </h1>
+            <div class="subheader">
+                <p class="description">
+                    A short rabbit hole from a poorly named function
+                </p>
+                <div class="metadata">
+                    <span>
+                        
+<svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 22 22">
+    
+    <title>Publication Date</title>
+    
+    <path
+        d="M9,10V12H7V10H9M13,10V12H11V10H13M17,10V12H15V10H17M19,3A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5A2,2 0 0,1 5,3H6V1H8V3H16V1H18V3H19M19,19V8H5V19H19M9,14V16H7V14H9M13,14V16H11V14H13M17,14V16H15V14H17Z" />
+</svg>
+ 2023-08-28
+                    </span>
+                    <span>
+                        
+<svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 23 23">
+    
+    <title>Reading Time</title>
+    
+    <path
+        d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" />
+</svg>
+ 5 minutes
+                    </span>
+                </div>
+        </header>
+        <div class="content">
+            <p>The other day, I was spelunking and found a simple function with a peculiar implementation<sup class="footnote-reference"><a href="#limit">1</a></sup>:</p>
+<span id="continue-reading"></span><pre data-lang="cpp" style="background-color:#e6e9ef;color:#4c4f69;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#df8e1d;">double </span><span style="color:#1e66f5;">limit</span><span style="color:#7c7f93;">(</span><span style="color:#df8e1d;">double </span><span style="color:#dc8a78;">x</span><span style="color:#179299;">, </span><span style="color:#df8e1d;">double </span><span style="color:#dc8a78;">low</span><span style="color:#179299;">, </span><span style="color:#df8e1d;">double </span><span style="color:#dc8a78;">high</span><span style="color:#7c7f93;">) {
+</span><span>    </span><span style="font-weight:bold;color:#ea76cb;">return </span><span style="color:#7c7f93;">((</span><span>x </span><span style="font-weight:bold;color:#04a5e5;">&lt; </span><span>std</span><span style="font-weight:bold;color:#04a5e5;">::</span><span style="color:#1e66f5;">min</span><span style="color:#7c7f93;">(</span><span>low</span><span style="color:#179299;">,</span><span>high</span><span style="color:#7c7f93;">)) </span><span style="font-weight:bold;color:#04a5e5;">? </span><span>std</span><span style="font-weight:bold;color:#04a5e5;">::</span><span style="color:#1e66f5;">min</span><span style="color:#7c7f93;">(</span><span>low</span><span style="color:#179299;">,</span><span>high</span><span style="color:#7c7f93;">) </span><span style="font-weight:bold;color:#04a5e5;">:
+</span><span>        </span><span style="color:#7c7f93;">((</span><span>x </span><span style="font-weight:bold;color:#04a5e5;">&gt; </span><span>std</span><span style="font-weight:bold;color:#04a5e5;">::</span><span style="color:#1e66f5;">max</span><span style="color:#7c7f93;">(</span><span>low</span><span style="color:#179299;">,</span><span>high</span><span style="color:#7c7f93;">)) </span><span style="font-weight:bold;color:#04a5e5;">? </span><span>std</span><span style="font-weight:bold;color:#04a5e5;">::</span><span style="color:#1e66f5;">max</span><span style="color:#7c7f93;">(</span><span>low</span><span style="color:#179299;">,</span><span>high</span><span style="color:#7c7f93;">) </span><span style="font-weight:bold;color:#04a5e5;">:</span><span> x</span><span style="color:#7c7f93;">))</span><span style="color:#179299;">;
+</span><span style="color:#7c7f93;">}
+</span></code></pre>
+<div class="footnote-definition" id="limit"><sup class="footnote-definition-label">1</sup>
+<p>You might recognize this by another name: <code>clamp</code>.<sup class="footnote-reference"><a href="#clamp">2</a></sup> The choice to use the name <code>limit</code> instead will bother me to the end of time.</p>
+</div>
+<div class="footnote-definition" id="clamp"><sup class="footnote-definition-label">2</sup>
+<p>I later found that <code>clamp</code> exists in the same header, implemented two years after <code>limit</code>. Presumably because someone was looking for it and couldn't find it because it was called <code>limit</code>.</p>
+</div>
+<p>This function tries to be clever with its implementation by avoiding a swap of <code>low</code> and <code>high</code> if the arguments to the function were somehow mixed up. But its attempted cleverness makes it harder to read. Not only is it harder to read, it's harder for the compiler to properly optimize this function. Throwing the function into <a href="https://godbolt.org/#z:OYLghAFBqd5QCxAYwPYBMCmBRdBLAF1QCcAaPECAMzwBtMA7AQwFtMQByARg9KtQYEAysib0QXACx8BBAKoBnTAAUAHpwAMvAFYTStJg1DIApACYAQuYukl9ZATwDKjdAGFUtAK4sGe1wAyeAyYAHI%2BAEaYxCBmAJykAA6oCoRODB7evnrJqY4CQSHhLFEx8baY9vkMQgRMxASZPn5cFVXptfUEhWGR0bEJCnUNTdmtQ109xaUDAJS2qF7EyOwc5gDMwcjeWADUJutuYsAkhAgsB9gmGgCC1zfoixH0u7R4LIRcEI9ez5i7qlIux%2Bf1eqAA7kCQS8EHhgAhZvsAOxWW67dG7YiYAhLBi7KCqfaHXZDdAgEAfBgQWgQ0iw%2BGzREHABiJIIZIpwWptPpCN2IHuGKF%2BIghMubI5LCYqm5kN5jKJrNJ5KlMppcrhfJAAMZB1RdyRABF7vdof83h8CGZvk8XoDgbbzbSHb8YZqmSjBRi8FR8eqidhdvLkfrhRizbsCJgWIkiYaweC9V6w/6DvHeUm0WGg5q45Ho4lMzchSYjcndj78WLieqPaHs1iccQ8eqiyWy1n0ZUlBXfaKAzmGSHy0LG7jBwg2xjS8bO7tu/9S/Ww2PmwCp%2BiZyaO3dbhGLYR1jbXf97fvnRHg0vy5XZQPg8qQApwUxErKgfKN5jsePH5SILyQJ/tK746rMRZbrcpqOq87yEJIx6gmeMHqlCMFXp6c63qm6yBg%2B7Lks%2Br6gZ%2B6zLt%2BTZ4o%2B2ysG%2B9qoRO4Fkdus67g8KFwQQACsiF2mhJ4JvxoIYeR2EQve7oSoRL5vgxpHkaueLVm4CaKqp2q8kSKnVqymnaqoEFGhw8y0JwXG8H4HBaKQqCcG41jWCSizLIuZjrDwpAEJoxnzAA1iAkgaAAdBoAAcXBInEcRcXEXAaBoZgaJIABs%2BicJIFneTZnC8AoIAaJ53nzHAsBIGgMZ0NE5CUOViSVTE9QsAAbqFAC0NFGFwyXxaQWBNXgKwAGp4Jg4IAPKJIwnAeTQtBRsQeUQBEWURME9QAJ7Tbwq3MMQ61jRE2iYA4W2kOVbCCGNDC0JtVm8FgEReMARy0LQeXcPd0aGMA4h3b1eBYg4eBNZg73WZgqjHV4UancEUamX9bwRMQG0eFgWUEMQ7xbfMVAGMACjDaNE1TR9MiCCIYjsFI5PyEoahZborQGEYKAOZY%2Bh4BEeWQPMqCJNU72tWNZi8KgIPEFjWA8xA8x2Md1QuAw7ieM0sTrKQgTBL0JT9FwCS5GkAijH4blJCkRsMFMfQxPrbQKx0wyNKr2Rm/LQMCJ0DTW7rtuDE7Jvq7YTs%2BzM%2Bty85KwSCZZmZX9tkcLsjUta1TC7B1wC7F1IUhfiuCECQ%2BxuVwsy8F5d3FWVqAVfQZAUBAtX1SAjXJZIwBcO5BV9QNmBE%2BNk2WTNdDzYty1/TtG2nRPe0HUdJ1k%2BdjAEFdN1ZQ9T0vW9p1YFKRi/dZ%2BCA44INg7wENQzDZNw5UWVIyje1o6s1mY9jH24/jhMjf3pMzbIlPiDTfgghFAqHUH9XQZh9DfTZpYawnNubwD5gLdIQsRa7FalKZYk51iGmTm1JgYsJZS1Bog%2B2Hs/AQFcIHdymtlah36EiVKhtqjUNaMw9I9CYiMLIdUL2zssh%2BBoe7XhIdtbTAYalCYIwXaCPGKIooNsQCMIjksKOJc0ocHMqQSy1kE67BuAAJQALKt12MAZAyAs7rCClwXOEB85EGIEXdypdCoVz8iAGKQVYqhUSklMKUVIpcWkAjDK2isoJ1ynocuWhGQaNFuE%2BOOU3GxPmBLVIzhJBAA">Godbolt</a> using the armv8-a clang 16.0 compiler with <code>-O2</code>, we get the following assembly:</p>
+<pre data-lang="asm" style="background-color:#e6e9ef;color:#4c4f69;" class="language-asm "><code class="language-asm" data-lang="asm"><span style="color:#1e66f5;">limit(double</span><span>, </span><span style="color:#1e66f5;">double</span><span>, </span><span style="color:#1e66f5;">double):
+</span><span style="color:#1e66f5;">    fcmp    d2</span><span>, </span><span style="color:#1e66f5;">d1
+</span><span style="color:#1e66f5;">    fcsel   d3</span><span>, </span><span style="color:#1e66f5;">d2</span><span>, </span><span style="color:#1e66f5;">d1</span><span>, </span><span style="color:#1e66f5;">mi
+</span><span style="color:#1e66f5;">    fcmp    d3</span><span>, </span><span style="color:#1e66f5;">d0
+</span><span style="color:#1e66f5;">    b.gt    .LBB0_3
+</span><span style="color:#1e66f5;">    fcmp    d1</span><span>, </span><span style="color:#1e66f5;">d2
+</span><span style="color:#1e66f5;">    fmov    d3</span><span>, </span><span style="color:#1e66f5;">d0
+</span><span style="color:#1e66f5;">    fcsel   d1</span><span>, </span><span style="color:#1e66f5;">d2</span><span>, </span><span style="color:#1e66f5;">d1</span><span>, </span><span style="color:#1e66f5;">mi
+</span><span style="color:#1e66f5;">    fcmp    d1</span><span>, </span><span style="color:#1e66f5;">d0
+</span><span style="color:#1e66f5;">    b.pl    .LBB0_3
+</span><span style="color:#1e66f5;">    fmov    d3</span><span>, </span><span style="color:#1e66f5;">d1
+</span><span style="color:#1e66f5;">.LBB0_3:
+</span><span style="color:#1e66f5;">    fmov    d0</span><span>, </span><span style="color:#1e66f5;">d3
+</span><span style="color:#1e66f5;">    </span><span style="color:#d20f39;">ret
+</span></code></pre>
+<p>It manages to figure most of it out and replace most of the potential branches with conditional instructions, but there are two places where it decides it must branch instead.</p>
+<p>The naive implementation with the same sanity check looks like this<sup class="footnote-reference"><a href="#else">3</a></sup>:</p>
+<pre data-lang="cpp" style="background-color:#e6e9ef;color:#4c4f69;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#df8e1d;">double </span><span style="color:#1e66f5;">limit</span><span style="color:#7c7f93;">(</span><span style="color:#df8e1d;">double </span><span style="color:#dc8a78;">x</span><span style="color:#179299;">, </span><span style="color:#df8e1d;">double </span><span style="color:#dc8a78;">low</span><span style="color:#179299;">, </span><span style="color:#df8e1d;">double </span><span style="color:#dc8a78;">high</span><span style="color:#7c7f93;">) {
+</span><span>    </span><span style="font-weight:bold;color:#8839ef;">if </span><span style="color:#7c7f93;">(</span><span>low </span><span style="font-weight:bold;color:#04a5e5;">&gt;</span><span> high</span><span style="color:#7c7f93;">) 
+</span><span>        std</span><span style="font-weight:bold;color:#04a5e5;">::</span><span style="color:#1e66f5;">swap</span><span style="color:#7c7f93;">(</span><span>low</span><span style="color:#179299;">,</span><span> high</span><span style="color:#7c7f93;">)</span><span style="color:#179299;">;
+</span><span>    </span><span style="font-weight:bold;color:#8839ef;">if </span><span style="color:#7c7f93;">(</span><span>x </span><span style="font-weight:bold;color:#04a5e5;">&lt;</span><span> low</span><span style="color:#7c7f93;">)
+</span><span>        </span><span style="font-weight:bold;color:#ea76cb;">return</span><span> low</span><span style="color:#179299;">;
+</span><span>    </span><span style="font-weight:bold;color:#8839ef;">else if </span><span style="color:#7c7f93;">(</span><span>x </span><span style="font-weight:bold;color:#04a5e5;">&gt;</span><span> high</span><span style="color:#7c7f93;">)
+</span><span>        </span><span style="font-weight:bold;color:#ea76cb;">return</span><span> high</span><span style="color:#179299;">;
+</span><span>    </span><span style="font-weight:bold;color:#8839ef;">else
+</span><span>        </span><span style="font-weight:bold;color:#ea76cb;">return</span><span> x</span><span style="color:#179299;">;
+</span><span style="color:#7c7f93;">}
+</span></code></pre>
+<div class="footnote-definition" id="else"><sup class="footnote-definition-label">3</sup>
+<p>The <code>else</code> isn't necessary but keeps the returns at the same level of indentation. Jury's out on which style looks nicer.</p>
+</div>
+<p>And it produces the following assembly given the same settings:</p>
+<pre data-lang="asm" style="background-color:#e6e9ef;color:#4c4f69;" class="language-asm "><code class="language-asm" data-lang="asm"><span style="color:#1e66f5;">limit(double</span><span>, </span><span style="color:#1e66f5;">double</span><span>, </span><span style="color:#1e66f5;">double):
+</span><span style="color:#1e66f5;">    fcmp    d1</span><span>, </span><span style="color:#1e66f5;">d2
+</span><span style="color:#1e66f5;">    fcsel   d3</span><span>, </span><span style="color:#1e66f5;">d1</span><span>, </span><span style="color:#1e66f5;">d2</span><span>, </span><span style="color:#1e66f5;">gt
+</span><span style="color:#1e66f5;">    fcsel   d1</span><span>, </span><span style="color:#1e66f5;">d2</span><span>, </span><span style="color:#1e66f5;">d1</span><span>, </span><span style="color:#1e66f5;">gt
+</span><span style="color:#1e66f5;">    fcmp    d3</span><span>, </span><span style="color:#1e66f5;">d0
+</span><span style="color:#1e66f5;">    fcsel   d2</span><span>, </span><span style="color:#1e66f5;">d3</span><span>, </span><span style="color:#1e66f5;">d0</span><span>, </span><span style="color:#1e66f5;">mi
+</span><span style="color:#1e66f5;">    fcmp    d1</span><span>, </span><span style="color:#1e66f5;">d0
+</span><span style="color:#1e66f5;">    fcsel   d0</span><span>, </span><span style="color:#1e66f5;">d1</span><span>, </span><span style="color:#1e66f5;">d2</span><span>, </span><span style="color:#1e66f5;">gt
+</span><span style="color:#1e66f5;">    </span><span style="color:#d20f39;">ret
+</span></code></pre>
+<p>The naive version is not only easier to read but the compiler recognizes every part of the pattern and is able to optimize it. The branches are removed in favor of conditional instructions and it's able to do the same work in only seven instructions versus the original eleven.</p>
+<p>If you really want to be terse, you can still do this in two lines<sup class="footnote-reference"><a href="#poison">4</a></sup>:</p>
+<pre data-lang="cpp" style="background-color:#e6e9ef;color:#4c4f69;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#df8e1d;">double </span><span style="color:#1e66f5;">limit</span><span style="color:#7c7f93;">(</span><span style="color:#df8e1d;">double </span><span style="color:#dc8a78;">x</span><span style="color:#179299;">, </span><span style="color:#df8e1d;">double </span><span style="color:#dc8a78;">low</span><span style="color:#179299;">, </span><span style="color:#df8e1d;">double </span><span style="color:#dc8a78;">high</span><span style="color:#7c7f93;">) {
+</span><span>    </span><span style="font-weight:bold;color:#8839ef;">if </span><span style="color:#7c7f93;">(</span><span>low </span><span style="font-weight:bold;color:#04a5e5;">&gt;</span><span> high</span><span style="color:#7c7f93;">) </span><span>std</span><span style="font-weight:bold;color:#04a5e5;">::</span><span style="color:#1e66f5;">swap</span><span style="color:#7c7f93;">(</span><span>low</span><span style="color:#179299;">,</span><span> high</span><span style="color:#7c7f93;">)</span><span style="color:#179299;">;
+</span><span>    </span><span style="color:#9ca0b0;">// Pick your poison
+</span><span>    </span><span style="font-weight:bold;color:#ea76cb;">return</span><span> x </span><span style="font-weight:bold;color:#04a5e5;">&lt;</span><span> low </span><span style="font-weight:bold;color:#04a5e5;">?</span><span> low </span><span style="font-weight:bold;color:#04a5e5;">:</span><span> high </span><span style="font-weight:bold;color:#04a5e5;">&lt;</span><span> x </span><span style="font-weight:bold;color:#04a5e5;">?</span><span> high </span><span style="font-weight:bold;color:#04a5e5;">:</span><span> x</span><span style="color:#179299;">;
+</span><span>    </span><span style="color:#9ca0b0;">// return std::min(high, std::max(low, x));
+</span><span style="color:#7c7f93;">}
+</span></code></pre>
+<div class="footnote-definition" id="poison"><sup class="footnote-definition-label">4</sup>
+<p>In either case, the compiler recognizes the pattern and optimizes it. The latter saves three whole characters that we can cash in later.</p>
+</div>
+<p>Or if you have access to C++17, we can simplify this even further<sup class="footnote-reference"><a href="#std">5</a></sup>:</p>
+<pre data-lang="cpp" style="background-color:#e6e9ef;color:#4c4f69;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#df8e1d;">double </span><span style="color:#1e66f5;">limit</span><span style="color:#7c7f93;">(</span><span style="color:#df8e1d;">double </span><span style="color:#dc8a78;">x</span><span style="color:#179299;">, </span><span style="color:#df8e1d;">double </span><span style="color:#dc8a78;">low</span><span style="color:#179299;">, </span><span style="color:#df8e1d;">double </span><span style="color:#dc8a78;">high</span><span style="color:#7c7f93;">) {
+</span><span>    </span><span style="font-weight:bold;color:#8839ef;">if </span><span style="color:#7c7f93;">(</span><span>low </span><span style="font-weight:bold;color:#04a5e5;">&gt;</span><span> high</span><span style="color:#7c7f93;">) </span><span>std</span><span style="font-weight:bold;color:#04a5e5;">::</span><span style="color:#1e66f5;">swap</span><span style="color:#7c7f93;">(</span><span>low</span><span style="color:#179299;">,</span><span> high</span><span style="color:#7c7f93;">)</span><span style="color:#179299;">;
+</span><span>    </span><span style="font-weight:bold;color:#ea76cb;">return </span><span>std</span><span style="font-weight:bold;color:#04a5e5;">::</span><span style="color:#1e66f5;">clamp</span><span style="color:#7c7f93;">(</span><span>x</span><span style="color:#179299;">,</span><span> low</span><span style="color:#179299;">,</span><span> high</span><span style="color:#7c7f93;">)</span><span style="color:#179299;">;
+</span><span style="color:#7c7f93;">}
+</span></code></pre>
+<div class="footnote-definition" id="std"><sup class="footnote-definition-label">5</sup>
+<p>Without the sanity check, calling <code>std::clamp</code> with <code>low &gt; high</code> results in undefined behavior. While most implementations of <code>clamp</code> aren't going to be as paranoid as this one, it feels like a classic C++ move to standardize a worse version of something a decade or two after everyone already wrote their own version for something that should've been part of the standard library in the first place.</p>
+</div>
+<p>The output of either of these functions is effectively the same as the naive version. The final two <code>fcsel</code> instructions choose different conditions and rearrange their arguments accordingly.</p>
+<p>Curiously enough, I could not get GCC to optimize any of these functions to the level that Clang did and each function has a wildly different assembly. I found this bizarre since Clang produced three nearly identical outputs. I initially thought that I was just missing some compiler option but the handful I tried either didn't change the output or weren't recognized by Godbolt. I'm beginning to think it's likely that GCC decided that relying on branch prediction would be faster than the conditional instructions in practice since the happy path in this function would be a no-op. I would like to dig deeper and know the reason for this discrepency, but I'm at my limit.</p>
+<p>The code used in these experiments along with the assembly can be found on <a href="https://godbolt.org/#z:OYLghAFBqd5QCxAYwPYBMCmBRdBLAF1QCcAaPECAMzwBtMA7AQwFtMQByARg9KtQYEAysib0QXACx8BBAKoBnTAAUAHpwAMvAFYTStJg1DIApACYAQuYukl9ZATwDKjdAGFUtAK4sGe1wAyeAyYAHI%2BAEaYxCBmAJykAA6oCoRODB7evnrJqY4CQSHhLFEx8baY9vkMQgRMxASZPn5cFVXptfUEhWGR0bEJCnUNTdmtQ109xaUDAJS2qF7EyOwc5gDMwcjeWADUJutuYsAkhAgsB9gmGgCC1zfoixH0u7R4LIRcEI9ez5i7qlIux%2Bf1eqAA7kCQS8EHhgAhZvsAOxWW67dG7YiYAhLBi7KCqfaHXZDdAgEAfBgQWgQ0iw%2BGzREHABiJIIZIpwWptPpCN2IHuGKF%2BIghMubI5LCYqm5kN5jKJrNJ5KlMppcrhfJAAMZB1RdyRABF7vdof83h8CGZvk8XoDgbbzbSHb8YZqmSjBRi8FR8eqidhdvLkfrhRizbsCJgWIkiYaweC9V6w/6DvHeUm0WGg5q45Ho4lMzchSYjcndj78WLieqPaHs1iccQ8eqiyWy1n0ZUlBXfaKAzmGSHy0LG7jBwg2xjS8bO7tu/9S/Ww2PmwCp%2BiZyaO3dbhGLYR1jbXf97fvnRHg0vy5XZQPg8qQApwUxErKgfKN5jsePH5SILyQJ/tK746rMRZbrcpqOq87yEJIx6gmeMHqlCMFXp6c63qm6yBg%2B7Lks%2Br6gZ%2B6zLt%2BTZ4o%2B2ysG%2B9qoRO4Fkdus67g8KFwQQACsiF2mhJ4JvxoIYeR2EQve7oSoRL5vgxpHkaueLVm4CaKqp2q8kSKnVqymnaqoEFGhw8y0JwXG8H4HBaKQqCcG41jWCSizLIuZjrDwpAEJoxnzAA1iAkgaAAdBoAAcXBInEcRcXEXAaBoZgaJIABs%2BicJIFneTZnC8AoIAaJ53nzHAsBIGgMZ0NE5CUOViSVTE9QsAAbqFAC0NFGFwyXxaQWBNXgKwAGp4Jg4IAPKJIwnAeTQtBRsQeUQBEWURME9QAJ7Tbwq3MMQ61jRE2iYA4W2kOVbCCGNDC0JtVm8FgEReMARy0LQeXcPd0aGMA4h3b1eBYg4eBNZg73WZgqjHV4UancEUamX9bwRMQG0eFgWUEMQ7xbfMVAGMACjDaNE1TR9MiCCIYjsFI5PyEoahZborQGEYKAOZY%2Bh4BEeWQPMqCJNU72tWNZi8KgIPEFjWA8xA8x2Md1QuAw7ieM0sTrKQgTBL0JT9FwCS5GkAijH4blJCkRsMFMfQxPrbQKx0wyNKr2Rm/LQMCJ0DTW7rtuDE7Jvq7YTs%2BzM%2Bty85KwSCZZmZX9tkcLsjUta1TC7B1wC7F1IUhfiuCECQ%2BxuVwsy8F5d3FWVqAVfQZAUBAtX1SAjXJZIwBcO5BV9QNmBE%2BNk2WTNdDzYty1/TtG2nRPe0HUdJ1k%2BdjAEFdN1ZQ9T0vW9p1YFKRi/dZ%2BCA44INg7wENQzDZNw5UWVIyje1o6s1mY9jH24/jhMjf3pMzbIlPiDTfgghFAqHUH9XQZh9DfTZpYawnNubwD5gLdIQsRa7FalKZYk51iGmTm1JgYsJZS1Bog%2B2Hs/AQFcIHdymtlah36EiVKhtqjUNaMw9I9CYiMLIdUL2zssh%2BBoe7XhIdtbTAYalCYIwXaCPGKIooNsQCMIjksKOJc0ocHMqQSy1kE67BuAAJQALKt12MAZAyAs7rCClwXOEB85EGIEXdypdCoVz8iAGKQVYqhUSklMKUVIpcWkAjDK2isoJ1ynocuWhGQaNFuE%2BOOU3GxPmBLVIzhJBAA">Godbolt</a>.</p>
+
+        </div>
+    </article>
+</main>
+
+  </div>
+  <footer>
+    <div class="container">
+      <ul>
+        <li><a class="no-decoration" href="https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;camblomquist">
+<svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24">
+    
+    <title>LinkedIn</title>
+    
+    <path
+        d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17A1.4 1.4 0 0 1 15.71 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z" />
+</svg>
+</a></li>
+        <li><a class="no-decoration" href="https:&#x2F;&#x2F;github.com&#x2F;camblomquist">
+<svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24">
+    
+    <title>GitHub</title>
+    
+    <path
+        d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z" />
+</svg>
+</a></li>
+        
+        <li><a class="no-decoration" href="mailto:cameron@blomqu.ist">
+<svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24">
+    
+    <title>email</title>
+    
+    <path
+        d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z" />
+</svg>
+</a></li>
+        <li><a class="no-decoration" href="https://blomqu.ist/atom.xml">
+<svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24">
+    
+    <title>Feed</title>
+    
+    <path
+        d="M6.18,15.64A2.18,2.18 0 0,1 8.36,17.82C8.36,19 7.38,20 6.18,20C5,20 4,19 4,17.82A2.18,2.18 0 0,1 6.18,15.64M4,4.44A15.56,15.56 0 0,1 19.56,20H16.73A12.73,12.73 0 0,0 4,7.27V4.44M4,10.1A9.9,9.9 0 0,1 13.9,20H11.07A7.07,7.07 0 0,0 4,12.93V10.1Z" />
+</svg>
+</a></li>
+      </ul>
+      <span>
+        <span class="copyright">&copy; 2023 Cameron Blomquist.</span>
+        <span>Powered by <a href="https://www.getzola.org/">Zola</a></span>
+      </span>
+    </div>
+  </footer>
+</body>
+
+</html>

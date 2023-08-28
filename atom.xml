@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>blomqu.ist</title>
+    <link href="https://blomqu.ist/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://blomqu.ist"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2023-08-28T00:00:00+00:00</updated>
+    <id>https://blomqu.ist/atom.xml</id>
+    <entry xml:lang="en">
+        <title>At My Limit: A Story About Clamping</title>
+        <published>2023-08-28T00:00:00+00:00</published>
+        <updated>2023-08-28T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="https://blomqu.ist/posts/2023/clamping/" type="text/html"/>
+        <id>https://blomqu.ist/posts/2023/clamping/</id>
+        
+        <summary type="html">&lt;p&gt;The other day, I was spelunking and found a simple function with a peculiar implementation:&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+</feed>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://blomqu.ist/</loc>
+    </url>
+    <url>
+        <loc>https://blomqu.ist/about/</loc>
+    </url>
+    <url>
+        <loc>https://blomqu.ist/posts/</loc>
+    </url>
+    <url>
+        <loc>https://blomqu.ist/posts/2023/</loc>
+    </url>
+    <url>
+        <loc>https://blomqu.ist/posts/2023/clamping/</loc>
+        <lastmod>2023-08-28</lastmod>
+    </url>
+    <url>
+        <loc>https://blomqu.ist/posts/page/1/</loc>
+    </url>
+</urlset>
