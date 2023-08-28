@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% import "macros/icons.html" as icons %}
+
+{% block title %}
+{{ page.title }} - {{ config.title }}
+{% endblock title %}
+
+{% block scripts %}
+<script src="{{ get_url(path='page.js') }}" async></script>
+{% endblock scripts %}
+
+{% block content %}
+<main class="page">
+    <article>
+        <header>
+            <h1 class="title">
+                {{ page.title }}
+            </h1>
+            <div class="subheader">
+                <p class="description">
+                    {{ page.description }}
+                </p>
+                <div class="metadata">
+                    <span>
+                        {{ icons::calendar(title="Publication Date") }} {{ page.date }}
+                    </span>
+                    <span>
+                        {{ icons::clock(title="Reading Time") }} {{ page.reading_time }} minutes
+                    </span>
+                </div>
+        </header>
+        <div class="content">
+            {{ page.content | safe }}
+        </div>
+    </article>
+</main>
+{% endblock content %}

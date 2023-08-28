@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% import "macros/elements.html" as elements %}
+
+{% block content %}
+<main class="section">
+    <header>
+        <h1 class="title">
+            {{ section.title }}
+        </h1>
+    </header>
+
+    <div class="content">
+        {% if section.content %}
+        {{ section.content | safe }}
+        {% endif %}
+    </div>
+
+    {% if paginator %}
+    <div class="post-list">
+        {% for page in paginator.pages %}
+        {{ elements::postcard(page=page) }}
+        {% endfor %}
+    </div>
+    <nav class="pagination">
+        <a class="previous no-decoration" {% if paginator.previous %} href="{{ paginator.previous }}" {% else %}
+            style="visibility:hidden" {% endif %}>Previous Page</a>
+        <span class="page-number">{{ paginator.current_index }}/{{ paginator.number_pagers }}</span>
+        <a class="next no-decoration" {% if paginator.next %} href="{{ paginator.next }}" {% else %}
+            style="visibility:hidden" {% endif %}>
+            Next Page
+        </a>
+    </nav>
+    {% elif section.pages %}
+    <div class="post-list">
+        {% for page in section.pages %}
+        {{ elements::postcard(page=page) }}
+        {% endfor %}
+    </div>
+    {% endif %}
+</main>
+{% endblock content %}

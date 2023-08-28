@@ -1,0 +1,56 @@
+{% import "macros/icons.html" as icons %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}{{ config.title }}{% endblock title %}</title>
+  <link href="{{ get_url(path='style.css') }}" rel="stylesheet" />
+  <link rel="icon" href="{{ get_url(path='favicon.ico') }}" />
+  {% block feed %}
+  <link rel="alternate" type="application/atom+xml" title="Atom Feed"
+    href="{{ get_url(path='atom.xml', trailing_slash=false) }}" />
+  {% endblock %}
+  {% block scripts %}
+  {% endblock scripts%}
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <a class="title no-decoration" href="/">blomqu.ist</a>
+      <nav>
+        <ul>
+          <li><a class="no-decoration" href="{{ get_url(path='@/posts/_index.md') }}">posts</a></li>
+          <li><a class="no-decoration" href="{{ get_url(path='@/about.md') }}">about</a></li>
+          {#<li><a class="no-decoration" href="{{ get_url(path='@/search.md') }}">{{ icons::magnify(title="Search")
+              }}</a>#}
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <div class="container">
+    {% block content %}
+    {% endblock content%}
+  </div>
+  <footer>
+    <div class="container">
+      <ul>
+        <li><a class="no-decoration" href="{{ config.extra.socials.linkedin }}">{{ icons::linkedin() }}</a></li>
+        <li><a class="no-decoration" href="{{ config.extra.socials.github }}">{{ icons::github() }}</a></li>
+        {#<li><a class="no-decoration" href="{{ config.extra.socials.goodreads }}">{{ icons::goodreads() }}</a></li>#}
+        <li><a class="no-decoration" href="mailto:{{ config.extra.email }}">{{ icons::email() }}</a></li>
+        <li><a class="no-decoration" href="{{ get_url(path='atom.xml', trailing_slash=false) }}">{{
+            icons::rss(title="Feed") }}</a></li>
+      </ul>
+      <span>
+        <span class="copyright">&copy; 2023 Cameron Blomquist.</span>
+        <span>Powered by <a href="https://www.getzola.org/">Zola</a></span>
+      </span>
+    </div>
+  </footer>
+</body>
+
+</html>

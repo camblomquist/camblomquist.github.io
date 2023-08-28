@@ -1,0 +1,17 @@
+{% macro postcard(page) %}
+<article class="postcard">
+    {# Only supposed to have one h1 and that's our page title, so we use h2 here #}
+    <h2 class="title"><a class="no-decoration" href="{{ page.permalink }}">{{ page.title }}</a></h2>
+    <p class="description">
+        {{ page.description }}
+    </p>
+    <div class="metadata">
+        <span>
+            {{ icons::calendar(title="Publication Date") }} {{ page.date }}
+        </span>
+        <span>
+            {{ icons::clock(title="Reading Time") }} {{ page.reading_time }} minutes
+        </span>
+    </div>
+</article>
+{% endmacro postcard %}

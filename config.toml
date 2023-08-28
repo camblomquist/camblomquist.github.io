@@ -1,0 +1,22 @@
+base_url = "https://blomqu.ist"
+
+title = "blomqu.ist"
+
+compile_sass = true
+
+build_search_index = true
+
+generate_feed = true
+
+[markdown]
+highlight_code = true
+highlight_theme = "catppuccin-latte"
+extra_syntaxes_and_themes = ["highlight_themes"]
+
+[extra]
+email = "cameron@blomqu.ist"
+
+[extra.socials]
+linkedin = "https://www.linkedin.com/in/camblomquist"
+github = "https://github.com/camblomquist"
+goodreads = "https://www.goodreads.com/user/show/101998960-cameron-blomquist"

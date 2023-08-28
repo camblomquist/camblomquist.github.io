@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+<script src="{{ get_url(path='elasticlunr.min.js') }}" async></script>
+<script src="{{ get_url(path='search_index.en.js') }}" async></script>
+{% endblock scripts %}
+
+{% block content %}
+<main>
+  <input class="search" type="text" name="search" placeholder="Search..." />
+</main>
+{% endblock content %}

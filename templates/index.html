@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% import "macros/elements.html" as elements %}
+
+{% block content %}
+<main class="index">
+  <header>
+    <h1 class="title">
+      {{ section.title }}
+    </h1>
+  </header>
+
+  <div class="content">
+    {% if section.content %}
+    {{ section.content | safe }}
+    {% endif %}
+  </div>
+
+  <h2>
+    Recent Posts
+  </h2>
+  <div class="post-list">
+    {% set recent_posts = get_section(path="posts/_index.md") %}
+    {% for page in recent_posts.pages | slice(end=4) %}
+    {{ elements::postcard(page=page) }}
+    {% endfor %}
+  </div>
+</main>
+{% endblock content %}
