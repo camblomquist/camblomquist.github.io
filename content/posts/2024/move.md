@@ -31,11 +31,9 @@ First question: Why is this broken?
 
 Second Question: How did this ever work in the first place?
 
-The answer to the first question is a classic C++ footgun. When a `std::vector` grows larger than its capacity, it reallocates its backing store and has to put the existing elements into that store. The best way to do this would be to *move* the elements, which in the best case is effectively a `memcpy`. Unfortunately, `std::vector` will only move elements if the class has the trait `is_nothrow_move_constructible` which is typically denoted by declaring the move constructor as `noexcept`.[^noexcept] In MSVC, `std::list` is not marked as such[^noexcept2] so when the vector reallocates, the list is *copied* instead of moved. When the list is copied, its elements are copied and our pointers are invalidated.[^copy]
+The answer to the first question is a classic C++ footgun. When a `std::vector` grows larger than its capacity, it reallocates its backing store and has to put the existing elements into that store. The best way to do this would be to *move* the elements, which in the best case is effectively a `memcpy`. Unfortunately, `std::vector` will only move elements if the class has the trait `is_nothrow_move_constructible` which is typically denoted by declaring the move constructor as `noexcept`.[^noexcept] In MSVC, `std::list` is not marked as such so when the vector reallocates, the list is *copied* instead of moved. When the list is copied, its elements are copied and our pointers are invalidated.[^copy]
 
 [^noexcept]: I say typically here because the default move constructor is implicitly `noexcept`.
-
-[^noexcept2]: It *is* noexcept in GCC and Clang's implementation of std, but the standard does not require this. This probably would've been a bigger nightmare to debug if this program was built for multiple platforms.
 
 [^copy]: Our first hint to this issue was that `Node` had defined a copy constructor but failed to copy its connections. That was a quick fix, but we never questioned why the nodes were being copied in the first place.
 
@@ -47,8 +45,6 @@ While MSVC is considered one of the most complete implementations of the standar
 
 [^msvc]: It also didn't have `thread_local`, `constexpr`, or a fully functional implementation of default member initializers. And the lack of two of those specific things regularly causes me pain.
 
-And so the second mystery is solved. Because of Microsoft's partial implementation of the standard pre-2015, we could rely on our nodes staying in the same spot because our vector would move the lists it contained. When we upgraded, the "correct" behavior broke our code.[^fix]
-
-[^fix]: For those curious, the simplest solution in our case was to change the `std::vector` to a `std::list`
+And so the second mystery is solved. Because of Microsoft's partial implementation of the standard pre-2015, we could rely on our nodes staying in the same spot because our vector would move the lists it contained. When we upgraded, the "correct" behavior broke our code. The simplest solution in our case was to change the `std::vector` to a `std::list` which keeps everything stable.
 
 Personally, I found this to be a pretty interesting puzzle. That said, it should not take a detailed understanding of the standard and the history of its various implementations to find the source of a bug. Most languages are designed for writing software. Apparently, C++ was designed for solving riddles.
