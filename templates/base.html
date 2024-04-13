@@ -17,12 +17,12 @@
   <title>{% block title %}{{ config.title }}{% endblock title %}</title>
   <link href="{{ get_url(path='style.css') }}" rel="stylesheet" />
   <link rel="icon" href="{{ get_url(path='favicon.ico') }}" />
+  <script data-goatcounter="https://stats.blomqu.ist/count" src="{{ get_url(path='count.js') }}" async></script>
   {% block feed %}
   <link rel="alternate" type="application/atom+xml" title="Atom Feed"
     href="{{ get_url(path='atom.xml', trailing_slash=false) }}" />
   {% endblock %}
-  {% block scripts %}
-  {% endblock scripts%}
+  {% block scripts %}{% endblock scripts%}
 </head>
 
 <body>
