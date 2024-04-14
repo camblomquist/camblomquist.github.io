@@ -4,7 +4,8 @@
 {% block meta %}
 <meta property="og:type" content="article">
 <meta property="og:title" content="{{ page.title }}">
-<meta name="description" property="og:description" content="{{ page.description }}">
+<meta name="description" content="{{ page.description }}">
+<meta property="og:description" content="{{ page.description }}">
 <meta property="og:article:published_time" content="{{ page.date }}">
 {% endblock meta %}
 

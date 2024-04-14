@@ -12,7 +12,8 @@
   {% endif %}
   {% block meta %}
   <meta property="og:type" content="website">
-  <meta name="description" property="og:description" content="Assorted ramblings">
+  <meta name="description" content="Assorted ramblings">
+  <meta property="og:description" content="Assorted ramblings">
   {% endblock meta %}
   <title>{% block title %}{{ config.title }}{% endblock title %}</title>
   <link href="{{ get_url(path='style.css') }}" rel="stylesheet" />
