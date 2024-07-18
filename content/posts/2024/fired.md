@@ -1,5 +1,5 @@
 +++
-title = "Why I was Fired"
+title = "Why I Was Fired"
 description = "A mostly incoherent ramble."
 date = 2024-07-18
 +++
