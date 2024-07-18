@@ -3,7 +3,7 @@ title = "About Me"
 template = "alt-page.html"
 +++
 
-My name is Cameron Blomquist. I have five hundred business cards that say I am a Junior Software Engineer at [MACH](https://www.mach.io/). At the office, I spend most of my time working with C++ to make off-road vehicles drives themselves. And resisting the temptation to rewrite it in Rust.
+My name is Cameron Blomquist. I previous was a Junior Softwre Engineer at [MACH](https://www.mach.io/) where I would spend most of my time working with C++ to make off-road vehicles drive themselves.
 
 I had always taken an interest in science and math but didn't get started with code and software development until I took a computer science course in my senior year of high school. It was either that or continuing with the orchestra that I joined six years prior where I was consistently last chair second violin. I think I made the right choice.
 
