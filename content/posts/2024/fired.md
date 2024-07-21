@@ -2,6 +2,7 @@
 title = "Why I Was Fired"
 description = "A mostly incoherent ramble."
 date = 2024-07-18
+draft = true
 +++
 
 On Monday, I was let go [^letgo] from my job after two years, four months, and one day. The reason why I was let go is ultimately the same reason why I was forced to resign from the job before that after one year and six months: I was given a project I thought I could handle but could not and did not. Then when faced with fight or flight, I chose freeze. I spent the past seven months in such a way that it looked like I was twiddling my thumbs, haunted all the while about facing the repeat of events that I was desperate to avoid yet feeling powerless to escape my fate.
