@@ -3,7 +3,11 @@ title = "About Me"
 template = "alt-page.html"
 +++
 
-My name is Cameron Blomquist. I previous was a Junior Softwre Engineer at [MACH](https://www.mach.io/) where I would spend most of my time working with C++ to make off-road vehicles drive themselves.
+My name is Cameron Blomquist.
+
+I am currently a Software Engineer at [Primordial Labs](https://www.primordial-labs.com/).
+
+I previously was a Junior Software Engineer at [MACH](https://www.mach.io/).
 
 I had always taken an interest in science and math but didn't get started with code and software development until I took a computer science course in my senior year of high school. It was either that or continuing with the orchestra that I joined six years prior where I was consistently last chair second violin. I think I made the right choice.
 

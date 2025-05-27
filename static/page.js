@@ -20,6 +20,7 @@ function updateSidenotes() {
 }
 
 addEventListener("load", e => {
+    document.body.classList.add("js-enabled");
     document.fonts.addEventListener("loadingdone", e => { updateSidenotes(); });
     updateSidenotes();
 });
