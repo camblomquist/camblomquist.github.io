@@ -2,6 +2,7 @@
 title = "Revisiting Loop Recognition in C++... in Rust"
 description = "Cargo Cult Programming"
 date = 2025-05-27
+updated = 2025-05-28
 draft = false
 +++
 
@@ -44,7 +45,19 @@ With all that out of the way, let's Rewrite It In Rust.
 
 # The Algorithm (The It)
 
-The original paper uses an implementation of a loop recognition algorithm as a benchmark. Each implementation largely followed the pseudocode of the algorithm while utilizing the most basic idioms of the language when applicable. This raises the question of what is considered Idiomatic Rust.
+The original paper uses an implementation of a loop recognition algorithm as a benchmark. The description of the algorithm in the original paper was brief, only referencing the relevant papers[^havlak] [^tarjan] and providing an exact copy of the pseudocode.
+
+[^havlak]: Havlak, Paul. (1997). Nesting of Reducible and Irreducible Loops. ACM Trans. Program. Lang. Syst.. 19. 557-567. [10.1145/262004.262005](https://dl.acm.org/doi/10.1145/262004.262005).
+
+[^tarjan]: Tarjan, Robert. (1973). Testing Flow Graph Reducibility. Journal of Computer and System Sciences. 9. 96-107. [10.1145/800125.804040](https://dl.acm.org/doi/10.1145/800125.804040).
+
+What the algorithm actually does is irrelevant to this experiment. The reasons for choosing this algorithm over others is describe in the original paper. But since I was asked to actually describe loop recognition, I will make an attempt.[^better]
+
+[^better]: You are better off reading the Havlak paper.
+
+Control-Flow Graphs are concerned with representing programs as traditional graphs. Each node in the graph, known as a Basic Block, corresponds with any number of statements executed in sequence without branching. An edge then describes the flow from one block of statements to the next which may or may not involve a branch. Havlak describes a loop as "Intuitively... a chunk of code whose execution may repeat without the repetition of any surrounding code." or more precisely as a subgraph of [strongly connected components](https://en.wikipedia.org/wiki/Strongly_connected_component). A *reducible* loop then is defined as one of these subgraphs with only one entry point, making an *irreducible* loop one with multiple entry points. The loop recognition algorithm is concerned with building a tree of these loop subgraphs and determining whether the loop is reducible or irreducible.
+
+Each implementation of the algorithm, according to the paper, largely followed the pseudocode of the algorithm while utilizing the most basic idioms of the language when applicable. This raises the question of what is considered Idiomatic Rust.
 
 ## Idiomatic Rust
 
