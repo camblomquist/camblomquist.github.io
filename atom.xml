@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>blomqu.ist</title>
+    <link rel="self" type="application/atom+xml" href="https://blomqu.ist/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://blomqu.ist"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-05-28T00:00:00+00:00</updated>
+    <id>https://blomqu.ist/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Revisiting Loop Recognition in C++... in Rust</title>
+        <published>2025-05-27T00:00:00+00:00</published>
+        <updated>2025-05-28T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blomqu.ist/posts/2025/loop-recognition/"/>
+        <id>https://blomqu.ist/posts/2025/loop-recognition/</id>
+        
+        <summary type="html">&lt;p&gt;Back in 2011, Google published &lt;a href=&quot;https:&#x2F;&#x2F;days2011.scala-lang.org&#x2F;sites&#x2F;days2011&#x2F;files&#x2F;ws3-1-Hundt.pdf&quot;&gt;a report&lt;&#x2F;a&gt; for Scala Days 2011 comparing the idiomatic implementation of an algorithm in C++, Java, Go, and Scala.&lt;&#x2F;p&gt;
+&lt;p&gt;Over ten years later, the landscape has changed &lt;em&gt;significantly&lt;&#x2F;em&gt;.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Mysterious Moving Pointers</title>
+        <published>2024-04-12T00:00:00+00:00</published>
+        <updated>2024-04-12T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blomqu.ist/posts/2024/move/"/>
+        <id>https://blomqu.ist/posts/2024/move/</id>
+        
+        <summary type="html">&lt;p&gt;At work, we have started the process of modernizing our codebase. We currently work with Visual Studio 2013 and are upgrading to Visual Studio 2022. Like any modernization effort, changes in the language are likely to break existing software as certain things are deprecated and new features are added. One piece of software was built exclusively for Windows and after upgrading the project, an important class consistently caused segmentation faults.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>At My Limit: A Story About Clamping</title>
+        <published>2023-08-28T00:00:00+00:00</published>
+        <updated>2023-08-28T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blomqu.ist/posts/2023/clamping/"/>
+        <id>https://blomqu.ist/posts/2023/clamping/</id>
+        
+        <summary type="html">&lt;p&gt;The other day, I was spelunking and found a simple function with a peculiar implementation:&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+</feed>
